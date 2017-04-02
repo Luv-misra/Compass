@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/R1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_orange_light"
+    tools:context="com.example.luv.compass.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/imageViewCompass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/compass" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/imageViewCompass"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="28dp"
+        android:layout_marginStart="20dp"
+        android:background="@android:color/holo_blue_bright"
+        android:onClick="changeBack"
+        android:tag="1"
+        app:srcCompat="@android:color/holo_blue_bright" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_marginStart="26dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:background="@android:color/holo_green_light"
+        android:onClick="changeBack"
+        android:tag="2"
+        app:srcCompat="@android:color/holo_green_light" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_marginStart="22dp"
+        android:layout_toEndOf="@+id/imageView2"
+        android:background="@android:color/holo_red_light"
+        android:onClick="changeBack"
+        android:tag="3"
+        app:srcCompat="@android:color/holo_red_light" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_marginStart="25dp"
+        android:layout_toEndOf="@+id/imageView3"
+        android:background="@android:color/holo_purple"
+        android:onClick="changeBack"
+        android:tag="4"
+        app:srcCompat="@android:color/holo_purple" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/imageView4"
+        android:layout_marginStart="22dp"
+        android:layout_toEndOf="@+id/imageView4"
+        android:background="@android:color/holo_orange_light"
+        android:onClick="changeBack"
+        android:tag="5"
+        app:srcCompat="@android:color/holo_orange_light" />
+
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="Heading: 0.0"
+        android:textColor="@android:color/background_light"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/date"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/capture_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvHeading"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:onClick="screenShot"
+        android:text="screenshot" />
+
+    <ImageView
+        android:id="@+id/temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_below="@+id/capture_screen"
+        app:srcCompat="@android:drawable/menuitem_background" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="TextView"
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp" />
+
+
+</RelativeLayout>
