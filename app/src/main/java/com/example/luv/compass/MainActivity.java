@@ -12,15 +12,20 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Environment;
+import android.support.v4.app.ListFragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +37,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
@@ -52,40 +59,142 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         TextView tvHeading;
         TextView date;
+        background_number no;
         RelativeLayout R1;
         ImageView IV;
         Button captureScreenShot;
         Bitmap mbitmap ;
+        ListView list;
+
+        Integer[] imgId ={
+
+                R.drawable.back1,
+                R.drawable.back2,
+                R.drawable.back3,
+                R.drawable.back4,
+                R.drawable.back5,
+                R.drawable.back6,
+                R.drawable.back7,
+                R.drawable.back8,
+                R.drawable.back9
+        };
+        Integer[] compassId ={
+
+                R.drawable.compass0,
+                R.drawable.compass1,
+                R.drawable.compass2,
+                R.drawable.compass3,
+                R.drawable.compass4,
+                R.drawable.compass5,
+                R.drawable.compass6,
+                R.drawable.compass7,
+                R.drawable.compass8,
+                R.drawable.compass9
+        };
+
+    public void setcompass()
+    {
+        background_number io = new background_number();
+        image.setImageResource(compassId[io.compass]);
+    }
+
+    public void choose_compass(View v)
+    {
+        Intent intent = new Intent(this,compass_choose.class);
+        startActivity(intent);
+    }
+
+    public void background(View v)
+    {
+        Intent intent = new Intent(this,background.class);
+        startActivity(intent);
+    }
+
+    public void setback()
+    {
+        if( no.number == 0 )
+        {
+            R1.setBackgroundResource(imgId[0]);
+        }
+        if( no.number == 1 )
+        {
+            R1.setBackgroundResource(imgId[1]);
+        }
+        if( no.number == 2 )
+        {
+            R1.setBackgroundResource(imgId[2]);
+        }
+        if( no.number == 3 )
+        {
+            R1.setBackgroundResource(imgId[3]);
+        }
+        if( no.number == 4 )
+        {
+            R1.setBackgroundResource(imgId[4]);
+        }
+        if( no.number == 5 )
+        {
+            R1.setBackgroundResource(imgId[5]);
+        }
+        if( no.number == 6 )
+        {
+            R1.setBackgroundResource(imgId[6]);
+        }
+        if( no.number == 7 )
+        {
+            R1.setBackgroundResource(imgId[7]);
+        }
+        if( no.number == 8 )
+        {
+            R1.setBackgroundResource(imgId[8]);
+        }
+        if( no.number == 9 )
+        {
+            R1.setBackgroundResource(imgId[9]);
+        }
+
+    }
 
 
-        public void changeBack(View view)
+    public void changeBack(Integer i)
         {
 
-            if( view.getTag().equals(Integer.toString(1)) )
+            if( i==1 )
             {
                 Toast.makeText(this, "reached" , Toast.LENGTH_SHORT).show();
                 R1.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.blue, null));
             }
-            else if( view.getTag().equals(Integer.toString(2)) )
+            else if( i==2 )
             {
                 Toast.makeText(this, "reached" , Toast.LENGTH_SHORT).show();
                 R1.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.green, null));
             }
-            else if( view.getTag().equals(Integer.toString(3)) )
+            else if( i==3 )
             {
                 Toast.makeText(this, "reached" , Toast.LENGTH_SHORT).show();
                 R1.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.red, null));
             }
-            else if( view.getTag().equals(Integer.toString(4)) )
+            else if( i==4 )
             {
                 Toast.makeText(this, "reached" , Toast.LENGTH_SHORT).show();
                 R1.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.purple, null));
             }
-            else if( view.getTag().equals(Integer.toString(5)) )
+            else if( i==5 )
             {
                 Toast.makeText(this, "reached" , Toast.LENGTH_SHORT).show();
                 R1.setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.orange, null));
             }
+        }
+
+        public void plain(View v)
+        {
+            background_number io = new background_number();
+            io.plain++;
+            if( io.plain==6 )
+            {
+                io.plain=0;
+            }
+            changeBack(io.plain);
         }
 
         public void count()
@@ -108,8 +217,10 @@ public class MainActivity extends Activity implements SensorEventListener {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
             setContentView(R.layout.activity_main);
 
+            no = new background_number();
             View Sview = getWindow().getDecorView();
             int FSCR = View.SYSTEM_UI_FLAG_FULLSCREEN;
             Sview.setSystemUiVisibility(FSCR);
@@ -121,8 +232,12 @@ public class MainActivity extends Activity implements SensorEventListener {
             captureScreenShot = (Button) findViewById(R.id.capture_screen);
             date = (TextView) findViewById(R.id.date);
             count();
+
+            setback();
+            setcompass();
             // initialize your android device sensor capabilities
             mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+            Log.i("reach", "3");
         }
 
 
@@ -130,13 +245,19 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
         public Bitmap getBitmapOFRootView(View v) {
+            Log.i("hello", "screenShot:9 ");
             View rootview = v.getRootView();
+            Log.i("hello", "screenShot: 0");
             rootview.setDrawingCacheEnabled(true);
+            Log.i("hello", "screenShot:7 ");
             Bitmap bitmap1 = rootview.getDrawingCache();
+            Log.i("hello", "screenShot: 8");
             return bitmap1;
         }
 
     public void screenShot(View view) {
+        Toast.makeText(this, "screenshot", Toast.LENGTH_SHORT).show();
+        Log.i("hello", "screenShot: ");
         mbitmap = getBitmapOFRootView(captureScreenShot);
 //            IV.setImageBitmap(mbitmap);
 //            createImage(mbitmap);
