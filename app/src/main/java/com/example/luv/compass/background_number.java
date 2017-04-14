@@ -6,8 +6,9 @@ package com.example.luv.compass;
 
 public class background_number {
 
-    static int number=0;
-    static int plain=1;
-    static int compass=0;
+    static Integer number=-1;
+    static Integer plain=1;
+    static Integer compass=-1;
+    static boolean first_time=true;
 
 }

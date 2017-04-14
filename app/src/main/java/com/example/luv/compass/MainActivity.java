@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -59,6 +60,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         TextView tvHeading;
         TextView date;
+        SharedPreferences sharedPreferences;
         background_number no;
         RelativeLayout R1;
         ImageView IV;
@@ -96,6 +98,12 @@ public class MainActivity extends Activity implements SensorEventListener {
     {
         background_number io = new background_number();
         image.setImageResource(compassId[io.compass]);
+        String temp = io.compass.toString();
+        if( !sharedPreferences.contains("S_compass") )
+        {
+            sharedPreferences.edit().putString("S_compass",temp).apply();
+
+        }
     }
 
     public void choose_compass(View v)
@@ -110,8 +118,57 @@ public class MainActivity extends Activity implements SensorEventListener {
         startActivity(intent);
     }
 
+
+    public void update_S_back()
+    {
+        if( !sharedPreferences.contains("S_compass") )
+        {
+            if( no.number==-1 )
+            {
+                no.number=0;
+            }
+            String temp = no.number.toString();
+            sharedPreferences.edit().putString("S_back",temp).apply();
+        }
+        else
+        {
+            String NUMBER1 = sharedPreferences.getString("S_back","");
+            no.number = Integer.parseInt(NUMBER1);
+        }
+    }
+    public void update_S_compass()
+    {
+        if( !sharedPreferences.contains("S_compass") )
+        {
+            if( no.compass==-1 )
+            {
+                no.compass=0;
+            }
+            String temp = no.compass.toString();
+            sharedPreferences.edit().putString("S_compass",temp).apply();
+        }
+        else
+        {
+            String NUMBER1 = sharedPreferences.getString("S_compass","");
+            no.compass = Integer.parseInt(NUMBER1);
+        }
+    }
+    public void set_S_compass()
+    {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("S_compass",Integer.toString(no.compass));
+        editor.commit();
+    }
+    public void set_S_back()
+    {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("S_back",Integer.toString(no.number));
+        editor.commit();
+    }
+
     public void setback()
     {
+
         if( no.number == 0 )
         {
             R1.setBackgroundResource(imgId[0]);
@@ -221,6 +278,21 @@ public class MainActivity extends Activity implements SensorEventListener {
             setContentView(R.layout.activity_main);
 
             no = new background_number();
+
+            sharedPreferences = this.getSharedPreferences("com.example.luv.compass", Context.MODE_PRIVATE);
+
+            if( no.first_time )
+            {
+                update_S_back();
+                no.first_time=false;
+                update_S_compass();
+            }
+            else
+            {
+                set_S_back();
+                set_S_compass();
+            }
+
             View Sview = getWindow().getDecorView();
             int FSCR = View.SYSTEM_UI_FLAG_FULLSCREEN;
             Sview.setSystemUiVisibility(FSCR);

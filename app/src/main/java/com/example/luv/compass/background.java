@@ -1,6 +1,8 @@
 package com.example.luv.compass;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +24,7 @@ public class background extends AppCompatActivity {
 
     ListView list;
     CustomListAdapter adapter;
+    SharedPreferences sharedPreferences;
 
     ArrayList<String> name;
     ArrayList<Integer> imdId;

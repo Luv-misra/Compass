@@ -1,6 +1,8 @@
 package com.example.luv.compass;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,7 +63,6 @@ public class compass_choose extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        getActionBar().hide();
         setContentView(R.layout.activity_background);
-
 
 
         list = (ListView) findViewById(R.id.list1);
